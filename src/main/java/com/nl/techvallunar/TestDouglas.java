@@ -1,6 +1,11 @@
 package com.nl.techvallunar;
 
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.aventstack.extentreports.Status;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -14,10 +19,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.aventstack.extentreports.Status;
+
 
 import java.time.Duration;
 import java.util.Collections;
@@ -88,6 +90,7 @@ public class TestDouglas {
         wait.until(ExpectedConditions.titleIs("Parfüm & Düfte ✔️ online kaufen » für Sie & Ihn | DOUGLAS"));
         pause(5000);
         moveMouse();
+        test.log(Status.INFO, "Perfome section Done");
     }
 
     private static void moveMouse() {
@@ -105,12 +108,14 @@ public class TestDouglas {
         searchByProduktart();
         pause(5000);  // Just to see the result
         clearSearchBar();
+        test.log(Status.INFO, "First search scenario done!");
     }
 
     private static void secondSearchScenario() {
         searchByHighlights();
         pause(5000);  // Just to see the result
         clearSearchBar();
+        test.log(Status.INFO, "Second search scenario done!");
     }
 
     private static void searchByMarke() {

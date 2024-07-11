@@ -1,5 +1,11 @@
 package com.nl.techvallunar;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.aventstack.extentreports.Status;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -23,6 +29,7 @@ public class TestDouglas {
     
     private WebDriver driver;
     private WebDriverWait wait;
+    ExtentTest test;
 
     @BeforeClass
     public void setUp() {
@@ -31,14 +38,18 @@ public class TestDouglas {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // Set up ExtentReports
-        
-
-        // 
+        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("extentReport.html");
+        htmlReporter.config().setTheme(Theme.STANDARD);
+        htmlReporter.config().setDocumentTitle("Selenium Test Report");
+        htmlReporter.config().setReportName("Test Report");
+        ExtentReports extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
+        test = extent.createTest("Douglas Website Test", "Testing Douglas website functionalities");
     }
 
     @Test
     public void testDouglasWebsite() {
-        // test.log(Status.INFO, "Navigating to Douglas website");
+        test.log(Status.INFO, "Navigating to Douglas website");
         driver.get("https://www.douglas.de/");
         driver.manage().window().maximize();
         waitForPageLoad();
@@ -47,7 +58,7 @@ public class TestDouglas {
         wait.until(ExpectedConditions.titleIs(expectedTitle));
 
         if (driver.getTitle().equals(expectedTitle)) {
-            // test.log(Status.PASS, "Page title is correct: " + expectedTitle);
+            test.log(Status.PASS, "Page title is correct: " + expectedTitle);
             handleCookiesSection();
             handlePerfumeSection();
             firstSearchScenario();
