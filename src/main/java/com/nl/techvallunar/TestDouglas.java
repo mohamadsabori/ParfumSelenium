@@ -1,5 +1,6 @@
 package com.nl.techvallunar;
 
+import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -34,15 +35,26 @@ public class TestDouglas {
     private static WebDriver driver;
     private static WebDriverWait wait;
 
+    static ExtentSparkReporter htmlReporter = new ExtentSparkReporter("extentReport.html");
+    static ExtentReports extent = new ExtentReports();
+    static ExtentTest test = extent.createTest("Douglas Website Test", "Testing Douglas website functionalities");
+
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "./chromedriver-linux64/chromedriver");
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+        htmlReporter.config().setTheme(Theme.STANDARD);
+        htmlReporter.config().setDocumentTitle("Selenium Test Report");
+        htmlReporter.config().setReportName("Test Report");
+        extent.attachReporter(htmlReporter);
+
+
         try {
             driver.get("https://www.douglas.de/");
+            waitForPageLoad();
+            test.log(Status.INFO, "Page loaded!");
             driver.manage().window().maximize();
-            waitForPageLoad();          
             wait.until(ExpectedConditions.titleIs(EXPECTED_TITLE));
             if (driver.getTitle().equals(EXPECTED_TITLE)) {
                 handleCookiesSection();
@@ -55,6 +67,9 @@ public class TestDouglas {
             }
         } finally {
             driver.quit();
+            if (extent != null) {
+                extent.flush();
+            }
         }
     }
 
@@ -64,21 +79,7 @@ public class TestDouglas {
         pause(1000);
         shadow.findElement(By.cssSelector(".sc-dcJsrY.eIFzaz")).click();
         pause(1000);
-        writeReport("Cookies handled");
-    }
-
-    private static void writeReport(String message) {
-        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("extentReport.html");
-        htmlReporter.config().setTheme(Theme.STANDARD);
-        htmlReporter.config().setDocumentTitle("Selenium Test Report");
-        htmlReporter.config().setReportName("Test Report");
-        ExtentReports extent = new ExtentReports();
-        extent.attachReporter(htmlReporter);
-
-        extent.createTest("Douglas Website Test", "Testing Douglas website functionalities").log(Status.INFO, "Navigating to Douglas website");
-        if (extent != null) {
-            extent.flush();
-        }
+        test.log(Status.INFO, "Cookies handled");
     }
 
     private static void handlePerfumeSection() {
