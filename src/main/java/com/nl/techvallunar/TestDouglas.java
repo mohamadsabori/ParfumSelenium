@@ -13,6 +13,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.aventstack.extentreports.Status;
+
 import java.time.Duration;
 import java.util.Collections;
 
@@ -59,6 +64,21 @@ public class TestDouglas {
         pause(1000);
         shadow.findElement(By.cssSelector(".sc-dcJsrY.eIFzaz")).click();
         pause(1000);
+        writeReport("Cookies handled");
+    }
+
+    private static void writeReport(String message) {
+        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("extentReport.html");
+        htmlReporter.config().setTheme(Theme.STANDARD);
+        htmlReporter.config().setDocumentTitle("Selenium Test Report");
+        htmlReporter.config().setReportName("Test Report");
+        ExtentReports extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
+
+        extent.createTest("Douglas Website Test", "Testing Douglas website functionalities").log(Status.INFO, "Navigating to Douglas website");
+        if (extent != null) {
+            extent.flush();
+        }
     }
 
     private static void handlePerfumeSection() {
