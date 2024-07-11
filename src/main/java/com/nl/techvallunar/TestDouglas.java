@@ -18,6 +18,7 @@ import java.util.Collections;
 
 public class TestDouglas {
 
+    private static final String PARFUM_XPATH = "//a[normalize-space()='PARFUM']";
     private static final String HIGHT_LIGHTS_XPATH = "//div[contains(text(),'Highlights')]";
     private static final String FILTER_BAR_XPATH = "//*[contains(text(), 'Alle Filter löschen')]";
     private static WebDriver driver;
@@ -59,8 +60,8 @@ public class TestDouglas {
     }
 
     private static void handlePerfumeSection() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[normalize-space()='PARFUM']")));
-        driver.findElement(By.xpath("//a[normalize-space()='PARFUM']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(PARFUM_XPATH)));
+        driver.findElement(By.xpath(PARFUM_XPATH)).click();
         wait.until(ExpectedConditions.titleIs("Parfüm & Düfte ✔️ online kaufen » für Sie & Ihn | DOUGLAS"));
         pause(5000);
         moveMouse();
