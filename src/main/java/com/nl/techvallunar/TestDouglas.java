@@ -18,9 +18,14 @@ import java.util.Collections;
 
 public class TestDouglas {
 
+    private static final String INPUT_PLACEHOLDER_MARKE_SUCHEN = "//input[@placeholder='Marke suchen']";
+    private static final String PRODUKTART_SUCHEN_XPATH = "//input[@placeholder='Produktart suchen']";
+    private static final String PRODUKTCART_XPATH = "//div[contains(text(),'Produktart')]";
+    private static final String MARKE_XPATH = "//div[contains(text(),'Marke')]";
     private static final String PARFUM_XPATH = "//a[normalize-space()='PARFUM']";
     private static final String HIGHT_LIGHTS_XPATH = "//div[contains(text(),'Highlights')]";
     private static final String FILTER_BAR_XPATH = "//*[contains(text(), 'Alle Filter löschen')]";
+    private static final String EXPECTED_TITLE = "Online-Parfümerie ✔️ Parfum & Kosmetik kaufen | DOUGLAS";
     private static WebDriver driver;
     private static WebDriverWait wait;
 
@@ -32,12 +37,9 @@ public class TestDouglas {
         try {
             driver.get("https://www.douglas.de/");
             driver.manage().window().maximize();
-            waitForPageLoad();
-
-            String expectedTitle = "Online-Parfümerie ✔️ Parfum & Kosmetik kaufen | DOUGLAS";
-            wait.until(ExpectedConditions.titleIs(expectedTitle));
-
-            if (driver.getTitle().equals(expectedTitle)) {
+            waitForPageLoad();          
+            wait.until(ExpectedConditions.titleIs(EXPECTED_TITLE));
+            if (driver.getTitle().equals(EXPECTED_TITLE)) {
                 handleCookiesSection();
                 handlePerfumeSection();
                 firstSearchScenario();
@@ -91,12 +93,12 @@ public class TestDouglas {
     }
 
     private static void searchByMarke() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Marke')]")));
-        driver.findElement(By.xpath("//div[contains(text(),'Marke')]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MARKE_XPATH)));
+        driver.findElement(By.xpath(MARKE_XPATH)).click();
         pause(5000);
         
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Marke suchen']")));
-        driver.findElement(By.xpath("//input[@placeholder='Marke suchen']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(INPUT_PLACEHOLDER_MARKE_SUCHEN)));
+        driver.findElement(By.xpath(INPUT_PLACEHOLDER_MARKE_SUCHEN)).click();
         new Actions(driver)
             .sendKeys("4711")
             .sendKeys(Keys.TAB)
@@ -107,12 +109,12 @@ public class TestDouglas {
     }
 
     private static void searchByProduktart() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Produktart')]")));
-        driver.findElement(By.xpath("//div[contains(text(),'Produktart')]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(PRODUKTCART_XPATH)));
+        driver.findElement(By.xpath(PRODUKTCART_XPATH)).click();
         pause(5000);
         
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Produktart suchen']")));
-        driver.findElement(By.xpath("//input[@placeholder='Produktart suchen']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(PRODUKTART_SUCHEN_XPATH)));
+        driver.findElement(By.xpath(PRODUKTART_SUCHEN_XPATH)).click();
         new Actions(driver)
             .sendKeys(Keys.TAB)
             .sendKeys(Keys.ENTER)
