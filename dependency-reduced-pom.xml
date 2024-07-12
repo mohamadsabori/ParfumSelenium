@@ -23,7 +23,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.nl.techvallunar.TestDouglas</mainClass>
+              <mainClass>com.nl.techvallunar.Douglas</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -40,7 +40,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.nl.techvallunar.TestDouglas</mainClass>
+                  <mainClass>com.nl.techvallunar.Douglas</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -67,6 +67,18 @@
         <exclusion>
           <artifactId>apiguardian-api</artifactId>
           <groupId>org.apiguardian</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>7.4.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>jquery</artifactId>
+          <groupId>org.webjars</groupId>
         </exclusion>
       </exclusions>
     </dependency>

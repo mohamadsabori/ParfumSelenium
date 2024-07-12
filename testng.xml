@@ -1,8 +1,0 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Selenium Test Suite">
-    <test name="Selenium Tests">
-        <classes>
-            <class name="com.nl.techvallunar.TestDouglas"/>
-        </classes>
-    </test>
-</suite>
