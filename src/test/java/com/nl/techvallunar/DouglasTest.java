@@ -4,35 +4,21 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.aventstack.extentreports.Status;
 
-import com.nl.techvallunar.pages.BasePage;
 import com.nl.techvallunar.pages.HomePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-import java.util.Collections;
-
-public class TestDouglas {
+public class DouglasTest {
     
     private WebDriver driver;
-    private WebDriverWait wait;
     HomePage homePage;
     ExtentTest test;
+    ExtentReports extent;
 
     @BeforeClass
     public void setUp() {
@@ -59,5 +45,9 @@ public class TestDouglas {
         if (driver != null) {
             driver.quit();
         }
+        if(extent != null){
+            extent.flush();
+        }
+
     }
 }
